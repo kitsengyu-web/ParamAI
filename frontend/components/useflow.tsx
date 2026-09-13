@@ -10,7 +10,7 @@ import {
   ShieldCheck,
 } from "lucide-react";
 
-import { AnimatedBeam } from "@/components/animated-beam";
+import { AnimatedBeam } from "@/components/flow";
 import { cn } from "@/lib/utils";
 
 const PramaanLogoIcon = () => (
