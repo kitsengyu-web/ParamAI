@@ -15,32 +15,42 @@ export default function ProtectedChatPage() {
   const supabase = createClient();
 
   useEffect(() => {
-    const getUser = async () => {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
+    let isMounted = true;
 
-      if (!user) {
-        router.push("/");
+    const init = async () => {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
+
+      if (!isMounted) return;
+
+      if (!session) {
+        router.push("/login");
       } else {
-        setUser(user);
+        setUser(session.user);
       }
       setLoading(false);
     };
 
-    getUser();
+    init();
 
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((_event, session) => {
+      if (!isMounted) return;
       if (!session) {
+        setUser(null);
         router.push("/login");
       } else {
-        setUser(session?.user ?? null);
+        setUser(session.user);
       }
+      setLoading(false);
     });
 
-    return () => subscription.unsubscribe();
+    return () => {
+      isMounted = false;
+      subscription.unsubscribe();
+    };
   }, [router, supabase]);
 
   const handleSignOut = async () => {
