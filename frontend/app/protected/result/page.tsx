@@ -61,7 +61,7 @@ export default function LaserFlowBoxExample() {
         position: 'absolute',
         top: '50%',
         left: '50%',
-        transform: 'translate(-50%, -50%)',
+        transform: 'translateX(-50%)',
         width: '86%',
         height: '85%',
         backgroundColor: '#120F17',
