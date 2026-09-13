@@ -30,7 +30,7 @@ const Circle = forwardRef<
     <div
       ref={ref}
       className={cn(
-        "z-10 flex h-12 w-12 items-center justify-center rounded-full border border-zinc-800 bg-zinc-900 p-3 shadow-[0_0_20px_-12px_rgba(255,255,255,0.25)]",
+        "z-10 flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-zinc-800 bg-zinc-900 p-3 shadow-[0_0_20px_-12px_rgba(255,255,255,0.25)]",
         className,
       )}
     >
@@ -39,6 +39,49 @@ const Circle = forwardRef<
   );
 });
 Circle.displayName = "Circle";
+
+// A node with its icon and an outward-facing label.
+// `side` controls whether the label sits before (left) or after (right) the icon,
+// so labels always point away from the center and don't cross the beams.
+function Node({
+  refProp,
+  icon,
+  label,
+  side,
+}: {
+  refProp: React.Ref<HTMLDivElement>;
+  icon: ReactNode;
+  label: string;
+  side: "left" | "right";
+}) {
+  const labelEl = (
+    <span
+      className={cn(
+        "text-xs sm:text-sm text-zinc-400 whitespace-nowrap",
+        side === "left" ? "text-right" : "text-left",
+      )}
+    >
+      {label}
+    </span>
+  );
+  const circleEl = <Circle ref={refProp}>{icon}</Circle>;
+
+  return (
+    <div className="flex items-center gap-2.5">
+      {side === "left" ? (
+        <>
+          {labelEl}
+          {circleEl}
+        </>
+      ) : (
+        <>
+          {circleEl}
+          {labelEl}
+        </>
+      )}
+    </div>
+  );
+}
 
 export function IntegrationsBeam() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -53,35 +96,53 @@ export function IntegrationsBeam() {
   return (
     <div
       ref={containerRef}
-      className="relative flex h-[380px] w-full max-w-2xl mx-auto items-center justify-center overflow-hidden"
+      className="relative flex h-[380px] w-full max-w-3xl mx-auto items-center justify-center overflow-hidden"
     >
-      <div className="flex size-full max-w-lg mx-auto flex-col items-stretch justify-between gap-10">
+      <div className="flex size-full max-w-2xl mx-auto flex-col items-stretch justify-between gap-10">
         <div className="flex flex-row items-center justify-between">
-          <Circle ref={topLeftRef}>
-            <Search className="h-5 w-5 text-zinc-300" />
-          </Circle>
-          <Circle ref={topRightRef}>
-            <FileText className="h-5 w-5 text-zinc-300" />
-          </Circle>
+          <Node
+            refProp={topLeftRef}
+            side="left"
+            label="Semantic Search"
+            icon={<Search className="h-5 w-5 text-zinc-300" />}
+          />
+          <Node
+            refProp={topRightRef}
+            side="right"
+            label="Document Analysis"
+            icon={<FileText className="h-5 w-5 text-zinc-300" />}
+          />
         </div>
         <div className="flex flex-row items-center justify-between">
-          <Circle ref={midLeftRef}>
-            <Layers className="h-5 w-5 text-zinc-300" />
-          </Circle>
+          <Node
+            refProp={midLeftRef}
+            side="left"
+            label="Standards Library"
+            icon={<Layers className="h-5 w-5 text-zinc-300" />}
+          />
           <Circle ref={centerRef} className="h-14 w-14 border-none bg-white p-2.5">
             <PramaanLogoIcon />
           </Circle>
-          <Circle ref={midRightRef}>
-            <ShieldCheck className="h-5 w-5 text-zinc-300" />
-          </Circle>
+          <Node
+            refProp={midRightRef}
+            side="right"
+            label="Certification"
+            icon={<ShieldCheck className="h-5 w-5 text-zinc-300" />}
+          />
         </div>
         <div className="flex flex-row items-center justify-between">
-          <Circle ref={bottomLeftRef}>
-            <ClipboardCheck className="h-5 w-5 text-zinc-300" />
-          </Circle>
-          <Circle ref={bottomRightRef}>
-            <BookOpen className="h-5 w-5 text-zinc-300" />
-          </Circle>
+          <Node
+            refProp={bottomLeftRef}
+            side="left"
+            label="Compliance Checks"
+            icon={<ClipboardCheck className="h-5 w-5 text-zinc-300" />}
+          />
+          <Node
+            refProp={bottomRightRef}
+            side="right"
+            label="Reference Material"
+            icon={<BookOpen className="h-5 w-5 text-zinc-300" />}
+          />
         </div>
       </div>
 
