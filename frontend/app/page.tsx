@@ -8,6 +8,7 @@ import TextType from "@/components/testtype";
 import { hasEnvVars } from "@/lib/utils";
 import CardSwap, { Card } from "@/components/cardswap";
 import { Stats2 } from "@/components/stats";
+import { IntegrationsBeam } from "@/components/useflow";
 
 const PramaanLogoIcon = () => (
   <svg
@@ -59,13 +60,19 @@ export default async function Home() {
           {/* Hero Content */}
           <HeroSection />
         </div>
-
-        {/* Decorative stacked-card accent, anchored to the hero section's corner */}
-        
       </section>
 
-     
-      
+      {/* SECTION 2: Integrations / capabilities hub-and-spoke beam diagram */}
+      <section className="relative z-20 w-full bg-black border-t border-zinc-800/40 py-24 px-6 text-center">
+        <h2 className="text-3xl md:text-4xl font-semibold text-white mb-3">
+          One platform, every step covered
+        </h2>
+        <p className="text-zinc-400 text-lg mb-4 max-w-xl mx-auto">
+          Pramaan AI ties search, documentation, and compliance together.
+        </p>
+        <IntegrationsBeam />
+      </section>
+
       {/* SECTION 3: CardSwap Feature Section (text left, cards bleeding off right edge) */}
       <section className="relative z-20 w-full bg-black border-t border-zinc-800/40 py-24 px-6 md:px-12">
         <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-16 items-center">
