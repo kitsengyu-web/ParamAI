@@ -54,6 +54,13 @@ export default function ProtectedChatPage() {
     isThinkingEnabled: boolean;
   }) => {
     console.log("Submitting payload with user ID:", user?.id, data);
+
+    // Stash the message (and anything else result.tsx needs) so the
+    // result page can read it on load. Swap this for your real
+    // submit-then-navigate flow (e.g. await an API call, then push).
+    sessionStorage.setItem("chat:lastMessage", data.message);
+
+    router.push("/protected/result");
   };
 
   if (loading) {
