@@ -10,6 +10,7 @@ import type { User as SupabaseUser } from "@supabase/supabase-js";
 export default function ProtectedChatPage() {
   const [user, setUser] = useState<SupabaseUser | null>(null);
   const [loading, setLoading] = useState(true);
+  const [isNavigating, setIsNavigating] = useState(false);
   const router = useRouter();
   const supabase = createClient();
 
@@ -55,6 +56,11 @@ export default function ProtectedChatPage() {
   }) => {
     console.log("Submitting payload with user ID:", user?.id, data);
 
+    // Show the loading screen the instant the arrow is pressed, before
+    // navigation even starts — this closes the gap that a route-level
+    // loading.tsx alone can leave on fast client-side transitions.
+    setIsNavigating(true);
+
     // Stash the message (and anything else result.tsx needs) so the
     // result page can read it on load. Swap this for your real
     // submit-then-navigate flow (e.g. await an API call, then push).
@@ -69,6 +75,17 @@ export default function ProtectedChatPage() {
         <div className="flex flex-col items-center gap-3">
           <div className="h-8 w-8 animate-spin rounded-full border-2 border-zinc-700 border-t-white" />
           <p className="text-sm font-medium text-zinc-400">Loading session...</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (isNavigating) {
+    return (
+      <div className="flex min-h-screen items-center justify-center bg-[#0d0d0e]">
+        <div className="flex flex-col items-center gap-3">
+          <div className="h-8 w-8 animate-spin rounded-full border-2 border-zinc-700 border-t-white" />
+          <p className="text-sm font-medium text-zinc-400">Preparing your results...</p>
         </div>
       </div>
     );
