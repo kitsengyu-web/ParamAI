@@ -103,14 +103,14 @@ export default async function Home() {
 
           {/* Right: card stack, given generous room so nothing clips, nudged toward the edge via flex */}
           <div className="relative h-[420px] md:h-[480px] w-full flex items-center justify-center md:justify-end overflow-visible">
-            <div className="relative md:mr-[-20px] lg:mr-[-60px]">
+            <div className="relative md:mr-[60px] lg:mr-[40px]">
               <CardSwap
-                width={340}
-                height={220}
-                cardDistance={50}
-                verticalDistance={55}
-                delay={4000}
-                pauseOnHover={true}
+      width={340}
+      height={220}
+      cardDistance={50}
+      verticalDistance={55}
+      delay={4000}
+      pauseOnHover={true}
               >
                 <Card customClass="p-6 flex flex-col justify-between">
                   <h3 className="text-lg font-semibold text-white">Semantic Matching</h3>
