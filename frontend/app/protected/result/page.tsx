@@ -42,7 +42,7 @@ export default function LaserFlowBoxExample() {
       <LaserFlow
         horizontalBeamOffset={0.1}
         verticalBeamOffset={0.0}
-        color="#808080"
+        color="#CF9EFF"
         horizontalSizing={0.5}
         verticalSizing={2}
         wispDensity={1}
@@ -66,7 +66,7 @@ export default function LaserFlowBoxExample() {
         height: '85%',
         backgroundColor: '#120F17',
         borderRadius: '20px',
-        border: '2px solid #FF79C6',
+        border: '2px solid #808080',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
