@@ -64,26 +64,7 @@ export default async function Home() {
         
       </section>
 
-      {/* SECTION 2: RippleGrid Section (Appears cleanly below PixelBlast) */}
-      <section className="relative w-full h-[500px] bg-black border-t border-zinc-800/50 overflow-hidden z-20">
-        <RippleGrid
-          enableRainbow={false}
-          gridColor="#5227FF"
-          rippleIntensity={0.05}
-          gridSize={10}
-          gridThickness={15}
-          mouseInteraction
-          mouseInteractionRadius={0.8}
-          opacity={1}
-          fadeDistance={1.5}
-          vignetteStrength={2}
-          glowIntensity={0.1}
-          gridRotation={0}
-        />
-          
-
-      </section>
-
+     
       
       {/* SECTION 3: CardSwap Feature Section (text left, cards bleeding off right edge) */}
       <section className="relative z-20 w-full bg-black border-t border-zinc-800/40 py-24 px-6 md:px-12">
