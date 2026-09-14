@@ -1,4 +1,5 @@
 "use client";
+import { useMemo } from "react";
 
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -12,7 +13,7 @@ export default function ProtectedChatPage() {
   const [loading, setLoading] = useState(true);
   const [isNavigating, setIsNavigating] = useState(false);
   const router = useRouter();
-  const supabase = createClient();
+  const supabase = useMemo(() => createClient(), []);
 
   useEffect(() => {
     let isMounted = true;
@@ -25,7 +26,7 @@ export default function ProtectedChatPage() {
       if (!isMounted) return;
 
       if (!session) {
-        router.push("/login");
+        router.push("/auth/login");
       } else {
         setUser(session.user);
       }
